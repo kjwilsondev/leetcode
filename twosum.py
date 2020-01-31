@@ -102,8 +102,43 @@ def twoSum_dict(nums, target):
     if not solutions:
         return None
     return solutions
-        
+
+"""
+Brute Force Dictionary Solution #2
+
+Input: 
+array of numbers, target, k desired output values
+Does not handle duplicate values
+
+Output: 
+Array of k tuples in order of proximity
+k = 5 by default
+returns None when there are no solutions
+
+Procedure:
+Iterate through each value
+Input key: tuple of array values, value: proximity
+Move range position to avoid redundant comparisons
+Sort array and return top k values
+
+Time Complexity:
+O(nlogn) time
+"""
+def twoSum2(nums, target, k=5):
+    # number dictionary
+    numd = {}
+    pos = 1
+    for add in range(0, len(nums)-1): # O(n)
+        for addend in range(pos, len(nums)): # O(nlogn)
+            proximity = abs(target - (nums[add] + nums[addend]))
+            print(nums[add], nums[addend], proximity)
+            numd[(nums[add], nums[addend])] = proximity
+    # this is heavy
+    solutions = [solution[0] for solution in (sorted(numd.items(), key=lambda x: x[1], reverse=False))]
+    if not solutions:
+        return None
+    return solutions[:k]
 
 if __name__ == "__main__":
     nums = [3, 9, 4, 7, 8, 9]
-    print(twoSum_point(nums, 17))
+    print(twoSum2(nums, 17))
