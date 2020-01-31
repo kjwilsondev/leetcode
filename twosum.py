@@ -1,10 +1,15 @@
 import os
+from collections import Counter
 
 """
 Brute Force Solution
 
-Input: array of numbers, target
-Output: first pair of numbers that add up to target
+Input: 
+array of numbers, target
+
+Output: 
+first pair of numbers that add up to target
+returns None when there are no solutions
 
 Procedure:
 Iterate through each value
@@ -27,6 +32,43 @@ def twoSum(nums, target):
         return None
 
 """
+Pointer Solution
+
+Input: 
+array of numbers, target
+
+Output: 
+first pair of numbers that add up to target
+returns None when there are no solutions
+
+Procedure:
+Sort array
+Set while loop to stop when pointers cross
+Compare sum to target
+If too small move left pointer
+If too big move right pointer
+If target hit move both pointers
+Return solution
+
+Time Complexity:
+O(nlogn) time
+"""
+def twoSum_point(nums, target):
+    # number dictionary
+    nums = sorted(nums) # O(nlogn)
+    left, right = 0, len(nums) - 1
+    while left < right: # O(n)
+        # print("left", nums[left])
+        # print("right", nums[right])
+        if (nums[left] + nums[right]) > target:
+            right -= 1
+        elif (nums[left] + nums[right]) < target:
+            left += 1
+        elif (nums[left] + nums[right]) == target:
+            return (nums[left], nums[right])
+    return None
+
+"""
 Dictionary Solution
 
 Input: 
@@ -34,6 +76,7 @@ array of numbers, target
 
 Output: 
 Array of tuples that add up to target
+returns None when there are no solutions
 
 Procedure:
 Iterate through each value
@@ -56,9 +99,11 @@ def twoSum_dict(nums, target):
             numd[add] += 1
         else:
             numd[add] = 1
+    if not solutions:
+        return None
     return solutions
         
 
 if __name__ == "__main__":
-    nums = [3, 4, 4, 7, 8, 9, 10]
-    print(twoSum_dict(nums, 17))
+    nums = [3, 9, 4, 7, 8, 9]
+    print(twoSum_point(nums, 17))
