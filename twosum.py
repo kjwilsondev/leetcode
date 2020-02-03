@@ -1,5 +1,4 @@
 import os
-from collections import Counter
 
 """
 Brute Force Solution
