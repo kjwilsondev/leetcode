@@ -7,29 +7,27 @@ O(nlogn)
 def twoSetSum(arr1, arr2, k):
     solutions = []
     # combine both arrays and sort them
-    arr = sorted(arr1 + arr2) # O(nlogn)
+    arr1 = sorted(arr1) # O(nlogn)
+    arr2 = sorted(arr2) # O(nlogn)
     # left
     l = 0
     # right
-    r = len(arr) - 1
-    distance = abs(k - (arr[l] + arr[r]))
-    print(arr)
+    r = len(arr2) - 1
+    distance = abs(k - (arr1[l] + arr2[r]))
 
-    while l < r:
-        print(arr[l], arr[r])
-        if abs(k - (arr[l] + arr[r])) < distance:
+    while (l <= len(arr1) - 1) and (r >= 0): # O(nm)
+        if abs(k - (arr1[l] + arr2[r])) < distance:
             # delete previous solutions
-            print("reset")
-            solutions = [(arr[l], arr[r])]
-            # l, r = l+1, r-1
-        elif abs(k - (arr[l] + arr[r])) == distance:
-            solutions.append((arr[l], arr[r]))
-            l, r = l+1, r-1
-        if (arr[l] + arr[r]) < k:
+            solutions = [(arr1[l], arr2[r])]
+            distance = abs(k - (arr1[l] + arr2[r]))
+        elif abs(k - (arr1[l] + arr2[r])) == distance:
+            solutions.append((arr1[l], arr2[r]))
+        if (arr1[l] + arr2[r]) < k:
             l += 1
-        elif (arr[l] + arr[r]) > k:
+        elif (arr1[l] + arr2[r]) > k:
             r -= 1
-        print(f"s: {solutions}")
+        elif (arr1[l] + arr2[r]) == k:
+            l, r = l+1, r-1
 
     return solutions
 
