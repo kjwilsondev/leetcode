@@ -127,17 +127,18 @@ def twoSum2(nums, target, k=5):
     # number dictionary
     numd = {}
     pos = 1
-    for add in range(0, len(nums)-1): # O(n)
-        for addend in range(pos, len(nums)): # O(nlogn)
+    for add in range(0, len(nums)-1): # n-1 iterations => O(n) x inner loop => O(n^2)
+        for addend in range(add+1, len(nums)): # up to n-1 iterations => O(n)
             proximity = abs(target - (nums[add] + nums[addend]))
             print(nums[add], nums[addend], proximity)
             numd[(nums[add], nums[addend])] = proximity
     # this is heavy
-    solutions = [solution[0] for solution in (sorted(numd.items(), key=lambda x: x[1], reverse=False))]
+    vals_by_prox = sorted(numd.items(), key=lambda val_prox: val_prox[1])  #, reverse=False)
+    solutions = [val_prox[0] for val_prox in vals_by_prox]
     if not solutions:
         return None
     return solutions[:k]
 
 if __name__ == "__main__":
-    nums = [3, 9, 4, 7, 8, 9]
-    print(twoSum2(nums, 17))
+    nums = [3, 9, 4, 7, 8, 9, 16, 1, 2, 15, 3, 17, 8, 5]
+    print(twoSum2(nums, 17, 10))

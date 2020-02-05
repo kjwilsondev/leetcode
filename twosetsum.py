@@ -8,14 +8,17 @@ def twoSetSum(arr1, arr2, k):
     solutions = []
     # combine both arrays and sort them
     arr1 = sorted(arr1) # O(nlogn)
-    arr2 = sorted(arr2) # O(nlogn)
+    arr2 = sorted(arr2) # O(mlogm)
     # left
     l = 0
     # right
     r = len(arr2) - 1
+    # code quality: sum
+    # best_distance
+    # distance
     distance = abs(k - (arr1[l] + arr2[r]))
 
-    while (l <= len(arr1) - 1) and (r >= 0): # O(nm)
+    while (l <= len(arr1) - 1) and (r >= 0): # O(nm) 
         if abs(k - (arr1[l] + arr2[r])) < distance:
             # delete previous solutions
             solutions = [(arr1[l], arr2[r])]
